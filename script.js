@@ -209,7 +209,7 @@ const gNewsKey = 'b191775e33206f1ceca77fdad1df3e3c';
 
 async function updateGNews() {
     const query = encodeURIComponent('typhoon OR "weather update" OR LPA OR climate');
-    const url = `https://gnews.io/api/4/search?q=${query}&lang=en&country=ph&max=1&apikey=${gNewsKey}`;
+    const url = '[https://cors-anywhere.herokuapp.com/https://gnews.io/api/4/search?q=typhoon...&apikey=](https://cors-anywhere.herokuapp.com/https://gnews.io/api/4/search?q=typhoon...&apikey=)' + apiKey;
 
     try {
         const response = await fetch(url);
