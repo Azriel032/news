@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thrive | Your Weather Companion</title>
+    <link rel="stylesheet" href="index_style.css">
+    <link rel="icon" type="image/png" href="assets/icons/Logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class= "navbar">
+        <a href="index.html"><img src="assets/icons/Thrive.png" alt="Thrive Logo" class="logo"></a>
+
+        <div class="nav-links">
+            <a href="index.html" class="active">Home</a>
+            <a href="about.html">About</a>
+        </div>
+    </nav>
+
+    <aside>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#tips">Tips</a></li>
+            <li><a href="#news">News</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </aside>
+
+    <main>
+        <div class="main container"> <!-- TEMPORARY LAYOUT, NEED FIXING!! LAYOUT MIGHT BE MESSY --> 
+            <div class="card" id="home">
+                
+                <div class="weather-welcome">
+                    <div class="welcome-container">
+                        <div class="welcome-text">
+                            <h1>Welcome to Thrive!</h1>
+                            <h2>Your Weather Companion</h2>
+                        </div>
+
+                        <div class="welcome-input">
+                            <input type="text" placeholder="Search City" class="city-input">
+                            <button class="welcome-search-btn">
+                                <img src="assets/icons/Search.png" alt="Search Icon">
+                            </button>
+                        </div>
+
+                        <div class="error-msg" style="display: none;">
+                            <p>City not found. Please try again.</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="weather-input" style="display: none;">
+                    <div class="input">
+                        <input type="text" placeholder="Search City" class="country-input city-input">
+                        <button class="search-btn">
+                            <img src="assets/icons/Search.png" alt="Search Icon">
+                        </button>
+                    </div>
+                    
+                    <div class="weather-result">
+                        <div class="city-day">
+                            <div class="location">
+                                <img src="assets/icons/Location.png" alt="Location Icon">
+                                <h2 class="city-txt">Manila</h2>
+                            </div>
+
+                            <h3 class="weather-day">Mon</h3>
+                        </div>
+
+                        <div class="weather-summary">
+                            <img src="assets/weather/clear.svg" alt="Weather Icon" class="weather-summary-img">
+                            
+                            <div class="weather-info">
+                                <h1 class="temp-txt">23°C</h1>
+                                <h3 class="condition-txt">Clear Sky</h3>
+                            </div>
+                        </div>
+
+                        <div class="weather-condition">
+                            <div class="condition-item">
+                                <img src="assets/icons/Humidity.png" alt="Humidity Icon" class="condition-icon">
+                                <div class="condition-info">
+                                    <h5>Humidity</h5>
+                                    <h4 class="humidity-value-txt">60%</h4>
+                                </div>
+                            </div>
+
+                            <div class="condition-item">
+                                <img src="assets/icons/Wind.png" alt="Wind Icon" class="condition-icon">
+                                <div class="condition-info">
+                                    <h5>Wind Speed</h5>
+                                    <h4 class="wind-value-txt">2 M/s</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="weather-text" style="display: none;">
+                    <h3 id="welcome">Welcome to Thrive!</h3>
+                    <h1 class="today-txt">It's a hot day today.</h1>
+
+                    <div class="future-weather">
+                        <div class="future-weather-card">
+                            <h2 class="forecast-item-date">07 May</h2>
+                            <img src="assets/weather/thunderstorm.svg" alt="Weather Icon" class="forecast-item-img">
+                            <h3 class="forecast-item-temp">24°C</h3>
+                        </div>
+
+                        <div class="future-weather-card">
+                            <h2 class="forecast-item-date">08 May</h2>
+                            <img src="assets/weather/thunderstorm.svg" alt="Weather Icon" class="forecast-item-img">
+                            <h3 class="forecast-item-temp">22°C</h3>
+                        </div>
+
+                        <div class="future-weather-card">
+                            <h2 class="forecast-item-date">09 May</h2>
+                            <img src="assets/weather/thunderstorm.svg" alt="Weather Icon" class="forecast-item-img">
+                            <h3 class="forecast-item-temp">25°C</h3>
+                        </div>
+
+                        <div class="future-weather-card">
+                            <h2 class="forecast-item-date">10 May</h2>
+                            <img src="assets/weather/thunderstorm.svg" alt="Weather Icon" class="forecast-item-img">
+                            <h3 class="forecast-item-temp">23°C</h3>
+                        </div>
+                    </div>
+
+                    <p class="weather-error-msg" style="display: none;">City not found. Please try again.</p>
+                </div>
+            </div>
+
+            <div class="card" id="tips">
+                <div class="about-weather">
+                    <div class="about-up">
+                        <img src="assets/icons/" alt="Weather Icon" class="about-weather-icon">
+                        <h1>23°C</h1>
+                    </div>
+
+                    <div class="about-down">
+                        <h2>Dangers of Heat</h2>
+                        <p>Heat waves can be dangerous, especially for vulnerable populations like the elderly, young children, and those with chronic illnesses. Prolonged exposure to high temperatures can lead to heat exhaustion, heat stroke, and other serious health issues.</p>
+                    </div>
+                </div>
+
+                <div class="tips-weather">
+                    <h1>It's a hot day today.</h1>
+                    <h3>What to do during this weather:</h3>
+                    <ol>
+                        <li>Stay hydrated by drinking plenty of water throughout the day.</li>
+                        <li>Wear lightweight and loose-fitting clothing to help your body stay cool.</li>
+                        <li>Avoid direct sunlight during peak hours (10 a.m. to 4 p.m.) and seek shade whenever possible.</li>
+                        <li>Use sunscreen with a high SPF to protect your skin from harmful UV rays.</li>
+                        <li>Limit outdoor activities and take breaks in air-conditioned or shaded areas to prevent heat exhaustion.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!--NEWS-->
+            <div class="card" id="news">
+                <div class="news-header-text">
+                    <h2 class="sdg-title">SDG 13: Climate Action</h2>
+                        <p>Comparing today's events with historical climate data.</p>
+                        </div>
+
+                    <div class="tab-container">
+                        <button class="tab-btn active" onclick="openTab(event, 'current-news')">CURRENT</button>
+                        <button class="tab-btn" onclick="openTab(event, 'past-news')">PAST</button>
+                    </div>
+
+                <div id="current-news" class="tab-content active">
+                   <div class="news-main-card">
+                       <div class="news-image-placeholder">
+                           <img src="assets/icons/News-Placeholder.png" alt="News Image" id="news-img-element">
+                        </div>
+                            <div class="news-details">
+                                <h2 id="news-title">Loading Latest News...</h2>
+                            <p id="news-desc">Fetching real-time updates regarding climate and weather.</p>
+                            <span class="badge current-badge">CURRENT NEWS</span>
+                        </div>
+                    </div>
+                </div>
+                        <div id="past-news" class="tab-content">
+                            <div class="news-main-card">
+                            <div class="news-image-placeholder">
+                            <img src="assets/icons/History-Placeholder.png" alt="Historical Image">
+                        </div>
+                        <div class="news-details">
+                            <h2>Luzon Earthquake (1990)</h2>
+                            <p>A devastating 7.7 magnitude quake that caused massive structural damage across Central Luzon.</p>
+                            <span class="badge historical-badge">HISTORICAL DATA</span>
+                        </div>
+                    </div>
+                </div>
+            </div> <!--END NEWS-->
+
+            <div class="card" id="contact"> <!-- Apply Content for Contact Page -->
+                <img src="assets/icons/Hotline.png" alt="Call Icon" class="call-icon">
+                <h1>Emgergency Hotlines</h1>
+                <p>In case of severe weather events, floods, or medical emergencies, please contact these authroized hotlines immediately.</p>
+                
+                <div class="hotlines">
+                    <div class="hotline-row">
+                        <div class="hotline-card">
+                            <div class="info">
+                                <h3>Philippine National Police</h3>
+                                <h2>9117 / 8723-0401</h2>
+                            </div>
+
+                            <div class="icon">
+                                <img src="assets/icons/Call.png" alt="Call Icon">
+                            </div>
+                        </div>
+
+                        <div class="hotline-card">
+                            <div class="info">
+                                <h3>Philippine Red Cross</h3>
+                                <h2>143 / 8790-2300</h2>
+                            </div>
+
+                            <div class="icon">
+                                <img src="assets/icons/Call.png" alt="Call Icon">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hotline-row">
+                        <div class="hotline-card">
+                            <div class="info">
+                                <h3>DPWH</h3>
+                                <h2>165-02</h2>
+                            </div>
+
+                            <div class="icon">
+                                <img src="assets/icons/Call.png" alt="Call Icon">
+                            </div>
+                        </div>
+
+                        <div class="hotline-card">
+                            <div class="info">
+                                <h3>NDRRMC</h3>
+                                <h2>8911-1406</h2>
+                            </div>
+
+                            <div class="icon">
+                                <img src="assets/icons/Call.png" alt="Call Icon">
+                            </div>
+                        </div> <!-- Hotline Card Div-->
+                    </div> <!-- Hotline Row Div-->
+
+                </div> <!-- Hotlines Container Div-->
+            </div> <!-- Contact Card Div-->
+        </div> <!-- Main Container Div-->
+    </main>
+
+    <footer class="footer">
+        <a href="index.html"><img src="assets/icons/Thrive2.png" alt="Thrive Logo" class="logo"></a>
+        <p class="slogan">Smart Tips for Messy Skies.</p>
+        <hr>
+        <div class="footer-texts">
+            <p>© 2026 Thrive. All Rights Reserved.</p>
+            <p>Web Systems & Technologies</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

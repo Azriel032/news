@@ -1,0 +1,708 @@
+html {
+    scroll-behavior: smooth;
+}
+/* Framework for home page */
+body {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+        "navbar navbar"
+        "sidebar main"
+        "footer footer";
+    min-height: 100vh;
+    margin: 1px; /* temporary margin to show grid areas (make margin: 0 if done) */
+
+    nav, aside, main, footer { /* Padding for all sections */
+        padding: 10px;
+    }
+
+    background-color: #F8FAFC; /* temporary background color */
+}
+nav {
+    grid-area: navbar;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(224, 242, 254, 0.7);
+    backdrop-filter: blur(10px);
+
+    border-bottom: 3px solid #B3E1FF;
+}
+aside {
+    grid-area: sidebar;
+    display: flex;
+
+    background-color: #E0F2FE;
+    border-right: 1px solid #0077ff65;
+}
+main {
+    grid-area: main;
+
+    border: 1px solid black; /* temporary border */
+}
+.footer {
+    grid-area: footer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #1E2A38;
+
+    border-top: 3px solid #0075FF;
+}
+
+/* Footer */
+.footer p {
+    cursor: default;
+}
+.slogan {
+    margin-bottom: -5px;
+    color: #EAF4FF;
+    font-family: "Inter", sans-serif;
+    font-size: 0.8rem;
+}
+.footer hr {
+    width: 90%;
+    margin: 20px 0;
+    border: 0;
+    border-top: 2px solid #2F4156;
+}
+.footer-texts {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    line-height: 0;
+    color: #AFC3D9;
+    font-family: "Inter", sans-serif;
+    font-size: 0.8rem;
+}
+
+/* Navigation bar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+}
+.logo {
+    display: block;
+    width: 100px;
+    filter: drop-shadow(2px 2px 2px rgba(128, 128, 128, 0.475));
+}
+.nav-links {
+    display: flex;
+    gap: 20px;
+
+    padding: 5px;
+}
+.nav-links a{
+    text-decoration: none;
+    font-size: 15px;
+    font-family: sans-serif;
+    color: #2D4A6B;
+
+    position: relative;
+}
+.nav-links a.active {
+    color: #0075FF;
+    font-weight: bold;
+}
+.nav-links a::before {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #0075FF;
+    transition: all .5s;
+}
+.nav-links a:hover::before {
+    width:100%
+}
+
+/* Sidebar */
+ul {
+    writing-mode: vertical-rl;
+    text-orientation: sideways;
+    gap: 40px;
+    list-style: none;
+    margin: 0;
+    display: flex;
+
+    position: sticky;
+    top: 40px;
+    height: max-content;
+}
+ul a {
+    text-decoration: none;
+    font-size: 15px;
+    font-family: "Inter", sans-serif;
+    color: #2D4A6B;
+
+    position: relative;
+
+    transition: color 0.3s ease;
+}
+ul a:hover {
+    color: #E39800;
+}
+
+/* Main Content */
+.container {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    padding: 10px; /* Temporary padding */
+    gap: 20px;
+
+    max-width: 1800px;
+    margin-inline: auto;
+}
+
+.card {
+    scroll-margin-top: 50px;
+    padding: 10px;
+
+    border: 1px solid black; /* temporary border */
+}
+/* Weather */ /* TEMPORARY STYLES, NEED FIXING!! LAYOUT MIGHT BE MESSY */
+#home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.weather-welcome {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    width: 1000px;
+    height: 600px;
+
+    border: 1px solid black; /* temporary border */
+}
+.welcome-container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+
+    border: 1px solid black; /* temporary border */
+}
+.welcome-container h1 {
+    font-family: "Outfit", sans-serif;
+    color: #0F172A;
+    margin: 0;
+    font-size: 3rem;
+}
+.welcome-container h2 {
+    font-family: "Inter", sans-serif;
+    color: #475569;
+    margin: 0;
+    font-size: 4rem;
+}
+.welcome-input {
+    width: 300px;
+    margin: 20px 0;
+    position: relative;
+    display: flex;
+    justify-content: center;
+
+    border: 1px solid black; /* temporary border */
+}
+.weather-input {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 500px;
+    align-items: center;
+
+    padding: 10px; /* Temporary padding */
+    border: 1px solid black; /* temporary border */
+}
+.welcome-search-btn {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    display: flex;
+    border: none;
+    cursor: pointer;
+
+    width: 30px;
+    height: 30px;
+}
+.error-msg {
+    font-family: 'Inter', sans-serif;
+    color: #DC2626;
+    padding: 10px;
+}
+.input {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    width: 400px;
+    position: relative;
+
+    border: 1px solid black; /* temporary border */
+}
+.city-input {
+    width: 100%;
+    padding: 10px 18px;
+    border-radius: 80px;
+    border: 3px solid transparent;
+    background-color: rgb(0, 0, 0, 0.15);
+    outline: none;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: 0.25s border;
+    padding-right: 50px;
+}
+.city-input:focus {
+    border: 3px solid rgba(113, 198, 255, 0.75);
+}
+.city-input::placeholder {
+    color: rgb(255, 255, 255, 0.75);
+    font-family: 'Inter', sans-serif;
+}
+.search-btn {
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    display: flex;
+    border: none;
+    cursor: pointer;
+
+    width: 30px;
+    height: 30px;
+}
+
+.weather-result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    width: 400px;
+    border-radius: 20px;
+    background-color: #B3E1FF; /* temporary background */
+
+    border: 1px solid black; /* temporary border */
+}
+.city-day {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+
+    /* border: 1px solid black; /* temporary border */
+}
+.location {
+    display: flex;
+    align-items: center;
+}
+.location h2 {
+    font-family: "Outfit", sans-serif;
+    color: #0F172A;
+    margin: 0;
+}
+.location img {
+    width:40px;
+}
+.city-day h3 {
+    font-family: "Inter", sans-serif;
+    color: #0F172A;
+    margin: 0;
+    font-size: 1rem;
+}
+.weather-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+
+    /* border: 1px solid black; /* temporary border */
+}
+.weather-summary-img {
+    width: 200px;
+    height: 200px;
+}
+.weather-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: end;
+}
+.weather-info h1 {
+    font-family: "Outfit", sans-serif;
+    color: #0F172A;
+    margin: 0;
+    font-size: 3rem;
+}
+.weather-info h3 {
+    font-family: "Inter", sans-serif;
+    color: #0F172A;
+    margin: 0;
+    font-size: 1.5rem;
+}
+.weather-condition {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    /* border: 1px solid black; /* temporary border */
+}
+.condition-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+
+    /* border: 1px solid black; /* temporary border */
+}
+.condition-info h5 {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+}
+.condition-info h4 {
+    margin: 0;
+    font-family: "Outfit", sans-serif;
+}
+.condition-item img {
+    width: 50px;
+}
+
+.weather-text {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+
+    border: 1px solid black; /* temporary border */
+}
+.weather-text #welcome {
+    font-family: "Inter", sans-serif;
+    color: #0F172A;
+    margin: 0;
+}
+.today-txt {
+    font-family: "Outfit", sans-serif;
+    color: #0F172A;
+    margin: 0;
+}
+.future-weather {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    width: 500px;
+    padding: 10px;
+    margin-top: 10px; /* temporary margin between texts and card */
+    /* gap: 10px; temporary gap */
+
+    border: 1px solid black; /* temporary border */
+}
+.future-weather-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    border-radius: 20px;
+    background-color: #B3E1FF; /* temporary background */
+
+    border: 1px solid black; /* temporary border */
+} 
+.forecast-item-date {
+    font-family: "Inter", sans-serif;
+    color: #0F172A;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+.forecast-item-img {
+    width: 60px;
+}
+.forecast-item-temp {
+    font-family: "Outfit", sans-serif;
+    color: #0F172A;
+    margin: 0;
+    padding: 10px;
+    font-size: 1.3rem;
+}
+.weather-error-msg {
+    font-family: 'Inter', sans-serif;
+    color: #DC2626;
+    padding: 10px;
+}
+
+
+/* TEMPORARY STYLES, NEED FIXING!! LAYOUT MIGHT BE MESSY */
+
+/* Tips */
+#tips { /* TEMPORARY STYLES, NEED FIXING!! LAYOUT MIGHT BE MESSY */
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px; /* temporary padding */
+}
+.about-weather {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    align-items: center;
+
+    border: 1px solid black; /* temporary border */
+}
+.about-up {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    width: 500px;
+
+    border: 1px solid black; /* temporary border */
+}
+.about-down {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    align-items: center;
+    width: 500px;
+    text-align: center;
+
+    border: 1px solid black; /* temporary border */
+}
+.tips-weather {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 10px;
+
+    border: 1px solid black; /* temporary border */
+}
+.tips-weather h1 {
+    font-family: "Outfit", sans-serif;
+    color: #0F172A;
+    font-size: 3rem;
+}
+.tips-weather h3 {
+    font-family: "Inter", sans-serif;
+    color: #475569;
+    font-size: 1.6rem;
+}
+.tips-weather li {
+    font-family: "Inter", sans-serif;
+    color: black;
+    font-size: 1.3rem;
+    line-height: 1.9;
+} /* TEMPORARY STYLES, NEED FIXING!! LAYOUT MIGHT BE MESSY */
+
+/* NEWSSSSSSSSSSSSSSSSSSSSS */
+#news {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    background-color: #F8FAFC; 
+}
+
+.news-header-text {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.sdg-title {
+    color: #1b4332; 
+    font-family: "Outfit", sans-serif;
+    font-size: 2.5rem;
+    margin: 0;
+}
+
+.tab-container {
+    display: flex;
+    background: #E2E8F0;
+    border-radius: 20px 20px 0 0;
+    overflow: hidden;
+    width: 100%;
+    max-width: 900px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 18px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-family: "Outfit", sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    background: #E2E8F0;
+    color: #475569;
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active:nth-child(1) {
+    background: #EF4444; 
+    color: white;
+}
+
+.tab-btn.active:nth-child(2) {
+    background: #F59E0B; 
+    color: white;
+}
+
+.tab-content {
+    display: none; 
+    background: white;
+    padding: 40px;
+    border-radius: 0 0 25px 25px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+    max-width: 900px;
+    width: 100%;
+}
+
+.tab-content.active {
+    display: block; 
+}
+
+.news-main-card {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.news-image-container {
+    flex: 1;
+    height: 250px;
+    border-radius: 15px;
+    overflow: hidden;
+    background: #f1f5f9;
+}
+
+.news-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.news-details {
+    flex: 1.2;
+}
+
+.news-details h2 {
+    font-family: "Outfit", sans-serif;
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #0F172A;
+}
+
+.news-details p {
+    font-family: "Inter", sans-serif;
+    line-height: 1.6;
+    color: #475569;
+}
+
+.badge {
+    display: inline-block;
+    padding: 8px 15px;
+    background: #1E293B;
+    color: white;
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 0.75rem;
+    border-radius: 4px;
+    margin-top: 20px;
+    text-transform: uppercase;
+} /* ENDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD */
+
+/* Emergency Hotline */
+#contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: default;
+}
+.call-icon {
+    width: 40px;
+    background-color: rgb(255, 218, 163);
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+#contact h1 {
+    font-family: "Outfit", sans-serif;
+    color: #DC2626;
+    margin: 5px;
+}
+#contact p {
+    font-family: "Inter", sans-serif;
+    font-size: 0.8rem;
+    color: #475569;
+}
+.hotlines {
+    display: flex;
+    flex-direction: column;
+    /* padding: 10px; /* Temporary padding */
+    gap: 10px;
+    margin: 10px;
+
+    /* border: 1px solid black; /* temporary border */
+}
+.hotline-row {
+    display: flex;
+    gap: 20px;
+    /* padding: 5px; /* Temporary padding */
+
+    /* border: 1px solid black; /* temporary border */
+}
+.hotline-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 10px 30px;
+    min-width: 450px;
+    border-radius: 30px;
+
+    background-color: #FFD275; /* temporary color */
+    border: 3px solid #E39800; /* temporary color */
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hotline-card:hover{
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(255, 0, 0, 0.5); /* temporary color */
+}
+.hotline-card:hover img{
+    background-color: #DC2626;
+}
+.hotline-card img {
+    width: 25px;
+    background-color: black;
+    padding: 10px;
+    border-radius: 100%;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+
+    transition: background-color 0.3s ease;
+}
+.hotline-card h2 {
+    font-family: "Outfit", sans-serif;
+    font-weight: bold;
+    color: #0F172A;
+}
+.info h3 {
+    font-family: "Inter", sans-serif;
+    color: #475569;
+    font-size: 0.8rem;
+}
