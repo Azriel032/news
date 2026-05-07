@@ -164,41 +164,96 @@
 
             <!--NEWS-->
             <div class="card" id="news">
-                <div class="news-header-text">
-                    <h2 class="sdg-title">SDG 13: Climate Action</h2>
-                        <p>Comparing today's events with historical climate data.</p>
-                        </div>
+    <div class="news-header-text">
+        <h2 class="sdg-title">SDG 13: Climate Action</h2>
+        <p>Comparing today's events with historical climate data.</p>
+    </div>
 
-                    <div class="tab-container">
-                        <button class="tab-btn active" onclick="openTab(event, 'current-news')">CURRENT</button>
-                        <button class="tab-btn" onclick="openTab(event, 'past-news')">PAST</button>
-                    </div>
+    <div class="tab-container">
+        <button class="tab-btn active" onclick="openTab(event, 'current-news')">CURRENT</button>
+        <button class="tab-btn" onclick="openTab(event, 'past-news')">PAST</button>
+    </div>
 
-                <div id="current-news" class="tab-content active">
-                   <div class="news-main-card">
-                       <div class="news-image-placeholder">
-                           <img src="assets/icons/News-Placeholder.png" alt="News Image" id="news-img-element">
-                        </div>
-                            <div class="news-details">
-                                <h2 id="news-title">Loading Latest News...</h2>
-                            <p id="news-desc">Fetching real-time updates regarding climate and weather.</p>
-                            <span class="badge current-badge">CURRENT NEWS</span>
-                        </div>
-                    </div>
+    <div id="current-news" class="tab-content active">
+        <div class="news-grid">
+            <div class="news-card">
+                <div class="news-img-wrapper">
+                    <img src="typhoon.jpg" alt="Super Typhoon Aghon">
+                    <span class="badge current-badge">CURRENT NEWS</span>
                 </div>
-                        <div id="past-news" class="tab-content">
-                            <div class="news-main-card">
-                            <div class="news-image-placeholder">
-                            <img src="assets/icons/History-Placeholder.png" alt="Historical Image">
-                        </div>
-                        <div class="news-details">
-                            <h2>Luzon Earthquake (1990)</h2>
-                            <p>A devastating 7.7 magnitude quake that caused massive structural damage across Central Luzon.</p>
-                            <span class="badge historical-badge">HISTORICAL DATA</span>
-                        </div>
-                    </div>
+                <div class="news-card-body">
+                    <h3>Super Typhoon Aghon</h3>
+                    <p>Heavy rainfall and localized flooding reported across Quezon Province. Emergency teams on standby.</p>
+                    <a href="#" class="read-more">READ FULL STORY <i class="arrow-icon">></i></a>
                 </div>
-            </div> <!--END NEWS-->
+            </div>
+
+            <div class="news-card">
+                <div class="news-img-wrapper">
+                    <img src="rainy.jpg" alt="LPA Rainy Weather">
+                    <span class="badge current-badge">CURRENT NEWS</span>
+                </div>
+                <div class="news-card-body">
+                    <h3>LPA Brings Rainy Weather</h3>
+                    <p>LPA affecting Southern Luzon and Visayas. Residents advised to monitor weather updates.</p>
+                    <a href="#" class="read-more">READ FULL STORY <i class="arrow-icon">></i></a>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-img-wrapper">
+                    <img src="monsoon.jpg" alt="Monsoon Update">
+                    <span class="badge current-badge">CURRENT NEWS</span>
+                </div>
+                <div class="news-card-body">
+                    <h3>Northeast Monsoon Update</h3>
+                    <p>Cool and dry air affecting Northern Luzon. Possible rain showers in some areas.</p>
+                    <a href="#" class="read-more">READ FULL STORY <i class="arrow-icon">></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="past-news" class="tab-content">
+        <div class="news-grid">
+            <div class="news-card">
+                <div class="news-img-wrapper">
+                    <img src="earthquake.jpg" alt="1990 Earthquake">
+                    <span class="badge historical-badge">HISTORICAL DATA</span>
+                </div>
+                <div class="news-card-body">
+                    <h3>Luzon Earthquake (1990)</h3>
+                    <p>A devastating 7.7 magnitude quake that caused massive structural damage across Central Luzon.</p>
+                    <a href="#" class="read-more">READ FULL STORY <i class="arrow-icon">></i></a>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-img-wrapper">
+                    <img src="pinatubo.jpg" alt="Mount Pinatubo Eruption">
+                    <span class="badge historical-badge">HISTORICAL DATA</span>
+                </div>
+                <div class="news-card-body">
+                    <h3>Pinatubo Eruption (1991)</h3>
+                    <p>The second-largest terrestrial eruption of the 20th century, affecting global temperatures for years.</p>
+                    <a href="#" class="read-more">READ FULL STORY <i class="arrow-icon">></i></a>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-img-wrapper">
+                    <img src="yolanda.jpg" alt="Typhoon Yolanda">
+                    <span class="badge historical-badge">HISTORICAL DATA</span>
+                </div>
+                <div class="news-card-body">
+                    <h3>Typhoon Yolanda (2013)</h3>
+                    <p>One of the strongest tropical cyclones ever recorded, highlighting the urgency of climate adaptation.</p>
+                    <a href="#" class="read-more">READ FULL STORY <i class="arrow-icon">></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!--END NEWS-->
 
             <div class="card" id="contact"> <!-- Apply Content for Contact Page -->
                 <img src="assets/icons/Hotline.png" alt="Call Icon" class="call-icon">

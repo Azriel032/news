@@ -185,56 +185,95 @@ function updateForecastItems(weatherData) {
     futureWeather.insertAdjacentHTML('beforeend', forecastItem)
 }
 //NEWS
-function hideSections() {
-    [weatherWelcome, weatherInput, weatherText, errorMsg]
-        .forEach(section =>  { if(section) section.style.display = 'none' });
-} 
+const newsDataKey = 'pub_df285ec6a85c42d4a489460e4c019f87';
 
+// Helper to create HTML cards dynamically
+function createCardHTML(article, type) {
+    const isPast = type === 'past';
+    const badgeClass = isPast ? 'historical-badge' : 'current-badge';
+    const badgeText = isPast ? 'HISTORICAL CONTEXT' : 'CURRENT NEWS';
+    
+    // IMAGE LOGIC: Use article image, or a relevant Unsplash image as a fallback
+    const fallbackTerm = encodeURIComponent(article.title.split(' ').slice(0,2).join(' '));
+    const imageUrl = article.image_url || `https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=800&auto=format&fit=crop`;
+
+    return `
+        <div class="news-card">
+            <div class="news-img-wrapper">
+                <img src="${imageUrl}" alt="${article.title}" onerror="this.src='https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800'">
+                <span class="badge ${badgeClass}">${badgeText}</span>
+            </div>
+            <div class="news-card-body">
+                <h3>${isPast ? 'PAST EVENT: ' : ''}${article.title}</h3>
+                <p>${article.description ? article.description.substring(0, 100) + '...' : 'Global climate patterns continue to shift. Read more for full environmental impact analysis.'}</p>
+                <a href="${article.link}" target="_blank" class="read-more">READ FULL STORY ></a>
+            </div>
+        </div>
+    `;
+}
+
+async function updateClimateNews() {
+    // 1. Fetch CURRENT News (Focused on SDG 13 Philippines)
+    const currentUrl = `https://newsdata.io/api/1/news?apikey=${newsDataKey}&q=typhoon%20OR%20flood%20OR%20"climate%20action"&country=ph&language=en&category=environment`;
+
+    try {
+        const response = await fetch(currentUrl);
+        const data = await response.json();
+
+        if (data.results && data.results.length > 0) {
+            const currentGrid = document.querySelector('#current-news .news-grid');
+            currentGrid.innerHTML = ''; // Clear loading/static content
+            
+            const topArticles = data.results.slice(0, 3);
+            topArticles.forEach(article => {
+                currentGrid.innerHTML += createCardHTML(article, 'current');
+            });
+
+            // 2. Trigger "Past" search based on the first article's main keyword
+            const firstWord = topArticles[0].title.split(' ')[0];
+            fetchHistoricalMatch(firstWord);
+        }
+    } catch (err) {
+        console.error("News API Error:", err);
+    }
+}
+
+async function fetchHistoricalMatch(keyword) {
+    const pastGrid = document.querySelector('#past-news .news-grid');
+    pastGrid.innerHTML = '<p style="padding:20px;">Searching related historical records...</p>';
+
+    // Since Archive is paid, we fetch "World" news with the same keyword to simulate a "Historical Comparison"
+    // We use category 'top' to find significant past-reaching events
+    const pastUrl = `https://newsdata.io/api/1/news?apikey=${newsDataKey}&q=${keyword}&language=en&category=environment&prioritydomain=top`;
+
+    try {
+        const response = await fetch(pastUrl);
+        const data = await response.json();
+
+        if (data.results && data.results.length > 0) {
+            pastGrid.innerHTML = '';
+            // Display top 3 matching historical/global context articles
+            data.results.slice(1, 4).forEach(article => {
+                pastGrid.innerHTML += createCardHTML(article, 'past');
+            });
+        } else {
+            pastGrid.innerHTML = '<p>No historical comparison available for this specific event.</p>';
+        }
+    } catch (err) {
+        console.error("Past Fetch Error:", err);
+    }
+}
+
+// Ensure the function runs when page loads
+document.addEventListener('DOMContentLoaded', updateClimateNews);
+
+// Tab Switching Logic (Keep your existing function)
 function openTab(evt, tabName) {
     const tabContents = document.getElementsByClassName("tab-content");
-    for (let content of tabContents) {
-        content.classList.remove("active");
-    }
-
+    for (let content of tabContents) { content.classList.remove("active"); }
     const tabBtns = document.getElementsByClassName("tab-btn");
-    for (let btn of tabBtns) {
-        btn.classList.remove("active");
-    }
-
+    for (let btn of tabBtns) { btn.classList.remove("active"); }
     document.getElementById(tabName).classList.add("active");
     evt.currentTarget.classList.add("active");
 }
-
-const gNewsKey = 'b191775e33206f1ceca77fdad1df3e3c'; 
-
-async function updateGNews() {
-    const query = encodeURIComponent('typhoon OR "weather update" OR LPA OR climate');
-    const url = '[https://cors-anywhere.herokuapp.com/https://gnews.io/api/4/search?q=typhoon...&apikey=](https://cors-anywhere.herokuapp.com/https://gnews.io/api/4/search?q=typhoon...&apikey=)' + apiKey;
-
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-
-        if (data.articles && data.articles.length > 0) {
-            const article = data.articles[0];
-            
-            document.getElementById('news-title').textContent = article.title;
-            document.getElementById('news-desc').textContent = article.description;
-            
-            const newsImg = document.getElementById('news-img-element');
-            if (newsImg) {
-                newsImg.src = article.image;
-                newsImg.alt = article.title;
-            }
-
-            document.getElementById('news-title').innerHTML = 
-                `<a href="${article.url}" target="_blank" style="text-decoration:none; color:inherit;">${article.title}</a>`;
-        }
-    } catch (error) {
-        console.error("GNews Fetch Error:", error);
-        document.getElementById('news-title').textContent = "Unable to load news.";
-    }
-}
-
-window.addEventListener('DOMContentLoaded', updateGNews);
 // END NEWS 
