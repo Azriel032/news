@@ -33,7 +33,6 @@ const dangerTitle = document.querySelector('.danger-title');
 const dangerDescription = document.querySelector('.danger-description');
 const tipsMainTitle = document.querySelector('.tips-main-title');
 const tipsList = document.querySelector('.tips-list');
-const shelterList = document.querySelector('.shelter-list');
 
 // =========================
 // CONFIGURATION
@@ -43,16 +42,33 @@ const newsDataKey = 'pub_df285ec6a85c42d4a489460e4c019f87';
 
 const shelterData = {
     Manila: [
-        'Manila Science High School',
-        'Rizal Park Evacuation Center',
-        'Tondo Gym Shelter',
-        'Baseco Community Center'
+        {
+            name: 'Manila Science High School',
+            image: 'assets/shelters/manila.jpg'
+        },
+        {
+            name: 'Rizal Park Evacuation Center',
+            image: 'assets/shelters/rizal.jpg'
+        },
+        {
+            name: 'Delpan Evacuation Center',
+            image: 'assets/shelters/delp.jpg'
+        },
+        {
+            name: 'Baseco Evacuation Center',
+            image: 'assets/shelters/baseco.jpg'
+        }
     ],
+
     Pasig: [
-        'Pasig Mega Market Shelter',
-        'Rosario Sports Complex',
-        'Pasig Elementary Shelter',
-        'Ugong Evacuation Hall'
+        {
+            name: 'Pasig Mega Market Shelter',
+            image: 'assets/shelters/default.jpg'
+        },
+        {
+            name: 'Rosario Sports Complex',
+            image: 'assets/shelters/default.jpg'
+        }
     ]
 };
 
@@ -205,13 +221,20 @@ async function updateWeatherInfo(city) {
 function updateTipsSection(id, temp, city, condition) {
 
     tipsTemp.textContent = `${Math.round(temp)}°C`;
+
     tipsCondition.textContent = condition;
 
-    tipsIcon.src = `assets/weather/${getWeatherIcon(id)}`;
+    tipsIcon.src =
+        `assets/weather/${getWeatherIcon(id)}`;
 
     let title;
     let description;
     let tips;
+    let alertColor;
+
+    // =========================
+    // WEATHER STATES
+    // =========================
 
     if (temp >= 32) {
 
@@ -220,6 +243,8 @@ function updateTipsSection(id, temp, city, condition) {
         description =
             'Very high temperatures may cause dehydration and heat exhaustion.';
 
+        alertColor = '#F97316';
+
         tips = [
             'Drink plenty of water.',
             'Avoid outdoor activities at noon.',
@@ -227,12 +252,16 @@ function updateTipsSection(id, temp, city, condition) {
             'Use sunscreen.'
         ];
 
-    } else if (id <= 232) {
+    }
+
+    else if (id <= 232) {
 
         title = 'Thunderstorm Warning';
 
         description =
             'Thunderstorms may include lightning and strong winds.';
+
+        alertColor = '#7C3AED';
 
         tips = [
             'Stay indoors.',
@@ -241,12 +270,16 @@ function updateTipsSection(id, temp, city, condition) {
             'Unplug appliances.'
         ];
 
-    } else if (id <= 531) {
+    }
+
+    else if (id <= 531) {
 
         title = 'Rainfall Advisory';
 
         description =
             'Rain may cause slippery roads and flooding.';
+
+        alertColor = '#2563EB';
 
         tips = [
             'Bring an umbrella.',
@@ -255,12 +288,16 @@ function updateTipsSection(id, temp, city, condition) {
             'Prepare emergency supplies.'
         ];
 
-    } else {
+    }
+
+    else {
 
         title = 'Normal Weather Advisory';
 
         description =
             'Weather conditions are generally stable today.';
+
+        alertColor = '#0EA5E9';
 
         tips = [
             'Stay hydrated.',
@@ -269,37 +306,87 @@ function updateTipsSection(id, temp, city, condition) {
         ];
     }
 
+    // =========================
+    // UPDATE ALERT CARD
+    // =========================
+
     dangerTitle.textContent = title;
+
     dangerDescription.textContent = description;
 
-    tipsMainTitle.textContent = getTodayLabel(id);
+    document.querySelector('.tips-alert')
+        .style.borderLeft =
+        `6px solid ${alertColor}`;
 
-    // Tips List
-    tipsList.innerHTML =
-        tips.map(tip => `<li>${tip}</li>`).join('');
+    tipsMainTitle.textContent =
+        getTodayLabel(id);
 
-    // Shelters
-    shelterList.innerHTML = '';
+    // =========================
+    // TIPS LIST
+    // =========================
 
-    const cityShelters = shelterData[city];
+   tipsList.innerHTML =
+    tips.map(tip => `
+
+    <li>${tip}</li>
+
+    `).join('');
+
+    // =========================
+    // SHELTERS
+    // =========================
+
+    const shelterGrid =
+        document.querySelector('.shelter-grid');
+
+    shelterGrid.innerHTML = '';
+
+    const cityShelters =
+        shelterData[city];
 
     if (cityShelters) {
 
         cityShelters.forEach(shelter => {
 
-            shelterList.innerHTML += `
-                <div class="shelter-card">
-                    ${shelter}
-                </div>
-            `;
-        });
+    shelterGrid.innerHTML += `
 
-    } else {
+    <div class="shelter-card">
 
-        shelterList.innerHTML = `
-            <div class="shelter-card">
-                No local shelters listed for this area.
+        <img
+            src="${shelter.image}"
+            alt="${shelter.name}"
+        >
+
+        <div class="shelter-info">
+
+            <h3>${shelter.name}</h3>
+
+        </div>
+
+    </div>
+    `;
+});
+
+    }
+
+    else {
+
+        shelterGrid.innerHTML = `
+
+        <div class="shelter-card">
+
+            <div class="shelter-info">
+
+                <h3>No Shelter Data</h3>
+
+                <p>
+                    No local shelters listed
+                    for this area.
+                </p>
+
             </div>
+
+        </div>
         `;
     }
 }
@@ -379,19 +466,19 @@ function hideAllSections() {
 
 function showErrorState() {
 
+    const wasInWeatherScreen =
+        weatherText.style.display === 'flex';
+
     hideAllSections();
 
-    // If already inside results screen
-    if (weatherText.style.display === 'flex') {
+    if (wasInWeatherScreen) {
 
         weatherInput.style.display = 'flex';
-
         weatherError.style.display = 'block';
 
     } else {
 
         weatherWelcome.style.display = 'flex';
-
         errorMsg.style.display = 'block';
     }
 }

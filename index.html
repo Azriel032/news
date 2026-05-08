@@ -135,52 +135,81 @@
                     <p class="weather-error-msg" style="display: none;">City not found. Please try again.</p>
                 </div>
             </div>
-                  <!--TIPS-->
-            <div class="card" id="tips">
+                  <!--TIPS1-->
+            <!-- TIPS SECTION -->
+<section id="tips">
 
-    <!-- LEFT CARD -->
-    <div class="tips-card">
+    <!-- TOP DASHBOARD -->
+    <div class="tips-dashboard">
 
-        <div class="tips-top">
-            <img src="assets/weather/clear.svg"
-                 alt="Weather Icon"
-                 class="about-weather-icon">
+        <!-- LEFT CARD -->
+        <div class="tips-card">
 
-            <div class="tips-temp-info">
-                <h1 class="tips-temp"></h1>
-                <h3 class="tips-condition"></h3>
+            <div class="tips-top">
+
+                <img
+                    src="assets/weather/clear.svg"
+                    alt="Weather Icon"
+                    class="about-weather-icon"
+                >
+
+                <div class="tips-temp-info">
+
+                    <h1 class="tips-temp"></h1>
+
+                    <p class="tips-condition"></p>
+
+                </div>
+
             </div>
+
+            <div class="tips-alert">
+
+                <h2 class="danger-title"></h2>
+
+                <p class="danger-description"></p>
+
+            </div>
+
         </div>
 
-        <div class="tips-bottom">
-            <h2 class="danger-title"></h2>
+        <!-- RIGHT CARD -->
+        <div class="tips-weather">
 
-            <p class="danger-description"></p>
+            <h1 class="tips-main-title"></h1>
+
+            <p class="tips-subtitle">
+                Recommended safety actions for today's conditions.
+            </p>
+
+            <ol class="tips-list"></ol>
+
         </div>
 
     </div>
 
-    <!-- RIGHT CARD -->
-    <div class="tips-weather">
+    <!-- SHELTERS -->
+    <div class="shelter-wrapper">
 
-        <h1 class="tips-main-title"></h1>
+        <div class="shelter-header">
 
-        <h3>
-            What to do during this weather:
-        </h3>
+            <h1>Available Evacuation Shelters</h1>
 
-        <ol class="tips-list"></ol>
+            <p>
+                Nearby safe areas and evacuation centers.
+            </p>
 
-        <!-- SHELTERS -->
-        <div class="shelter-section">
-
-            <h2>Available Evacuation Shelters</h2>
-
-            <div class="shelter-list">
-            </div>
         </div>
+
+        <div class="shelter-grid">
+
+            <!-- JS GENERATED -->
+            
+        </div>
+
     </div>
-</div>
+
+</section>
             <!--END TIPSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS-->
 
             <!--NEWS-->
