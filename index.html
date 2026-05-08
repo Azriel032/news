@@ -135,80 +135,90 @@
                     <p class="weather-error-msg" style="display: none;">City not found. Please try again.</p>
                 </div>
             </div>
-
+                  <!--TIPS-->
             <div class="card" id="tips">
-                <div class="about-weather">
-                    <div class="about-up">
-                        <img src="assets/icons/" alt="Weather Icon" class="about-weather-icon">
-                        <h1>23°C</h1>
-                    </div>
 
-                    <div class="about-down">
-                        <h2>Dangers of Heat</h2>
-                        <p>Heat waves can be dangerous, especially for vulnerable populations like the elderly, young children, and those with chronic illnesses. Prolonged exposure to high temperatures can lead to heat exhaustion, heat stroke, and other serious health issues.</p>
-                    </div>
-                </div>
+    <!-- LEFT CARD -->
+    <div class="tips-card">
 
-                <div class="tips-weather">
-                    <h1>It's a hot day today.</h1>
-                    <h3>What to do during this weather:</h3>
-                    <ol>
-                        <li>Stay hydrated by drinking plenty of water throughout the day.</li>
-                        <li>Wear lightweight and loose-fitting clothing to help your body stay cool.</li>
-                        <li>Avoid direct sunlight during peak hours (10 a.m. to 4 p.m.) and seek shade whenever possible.</li>
-                        <li>Use sunscreen with a high SPF to protect your skin from harmful UV rays.</li>
-                        <li>Limit outdoor activities and take breaks in air-conditioned or shaded areas to prevent heat exhaustion.</li>
-                    </ol>
-                </div>
+        <div class="tips-top">
+            <img src="assets/weather/clear.svg"
+                 alt="Weather Icon"
+                 class="about-weather-icon">
+
+            <div class="tips-temp-info">
+                <h1 class="tips-temp"></h1>
+                <h3 class="tips-condition"></h3>
             </div>
+        </div>
+
+        <div class="tips-bottom">
+            <h2 class="danger-title"></h2>
+
+            <p class="danger-description"></p>
+        </div>
+
+    </div>
+
+    <!-- RIGHT CARD -->
+    <div class="tips-weather">
+
+        <h1 class="tips-main-title"></h1>
+
+        <h3>
+            What to do during this weather:
+        </h3>
+
+        <ol class="tips-list"></ol>
+
+        <!-- SHELTERS -->
+        <div class="shelter-section">
+
+            <h2>Available Evacuation Shelters</h2>
+
+            <div class="shelter-list">
+            </div>
+        </div>
+    </div>
+</div>
+            <!--END TIPSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS-->
 
             <!--NEWS-->
             <div class="card" id="news">
-    <div class="news-header-text">
-        <h2 class="sdg-title">SDG 13: Climate Action</h2>
-        <p>Comparing today's events with historical climate data.</p>
-    </div>
-
-    <div class="tab-container">
-        <button class="tab-btn active" onclick="openTab(event, 'current-news')">CURRENT</button>
-        <button class="tab-btn" onclick="openTab(event, 'past-news')">PAST</button>
-    </div>
-
-    <div id="current-news" class="tab-content active">
-        <div class="news-grid">
-            <div class="news-card">
-                <div class="news-img-wrapper">
-                    <img src="typhoon.jpg" alt="Super Typhoon Aghon">
-                    <span class="badge current-badge">CURRENT NEWS</span>
+               <div class="news-header-text">
+                 <h2 class="sdg-title">SDG 13: Climate Action</h2>
+                 <p>Comparing today's events with historical climate data.</p>
                 </div>
-                <div class="news-card-body">
-                    <h3>Super Typhoon Aghon</h3>
-                    <p>Heavy rainfall and localized flooding reported across Quezon Province. Emergency teams on standby.</p>
-                    <a href="#" class="read-more">READ FULL STORY <i class="arrow-icon">></i></a>
-                </div>
+
+            <div class="tab-container">
+               <button class="tab-btn active" onclick="openTab(event, 'current-news')">CURRENT</button>
+               <button class="tab-btn" onclick="openTab(event, 'past-news')">PAST</button>
             </div>
 
-            <div class="news-card">
-                <div class="news-img-wrapper">
-                    <img src="rainy.jpg" alt="LPA Rainy Weather">
-                    <span class="badge current-badge">CURRENT NEWS</span>
-                </div>
-                <div class="news-card-body">
-                    <h3>LPA Brings Rainy Weather</h3>
-                    <p>LPA affecting Southern Luzon and Visayas. Residents advised to monitor weather updates.</p>
-                    <a href="#" class="read-more">READ FULL STORY <i class="arrow-icon">></i></a>
+           <div id="current-news" class="tab-content active">
+               <div class="news-grid" id="news-container">
+                  <div class="news-card skeleton">
+                    <div class="skeleton-img"></div>
+                    <div class="news-card-body">
+                    <div class="skeleton-text title"></div>
+                    <div class="skeleton-text p"></div>
+                    <div class="skeleton-text p short"></div>
                 </div>
             </div>
-
-            <div class="news-card">
-                <div class="news-img-wrapper">
-                    <img src="monsoon.jpg" alt="Monsoon Update">
-                    <span class="badge current-badge">CURRENT NEWS</span>
-                </div>
+           <div class="news-card skeleton">
+                <div class="skeleton-img"></div>
                 <div class="news-card-body">
-                    <h3>Northeast Monsoon Update</h3>
-                    <p>Cool and dry air affecting Northern Luzon. Possible rain showers in some areas.</p>
-                    <a href="#" class="read-more">READ FULL STORY <i class="arrow-icon">></i></a>
+                    <div class="skeleton-text title"></div>
+                    <div class="skeleton-text p"></div>
+                    <div class="skeleton-text p short"></div>
+                </div>
+            </div>
+            <div class="news-card skeleton">
+                <div class="skeleton-img"></div>
+                <div class="news-card-body">
+                    <div class="skeleton-text title"></div>
+                    <div class="skeleton-text p"></div>
+                    <div class="skeleton-text p short"></div>
                 </div>
             </div>
         </div>
@@ -216,44 +226,17 @@
 
     <div id="past-news" class="tab-content">
         <div class="news-grid">
-            <div class="news-card">
-                <div class="news-img-wrapper">
-                    <img src="earthquake.jpg" alt="1990 Earthquake">
-                    <span class="badge historical-badge">HISTORICAL DATA</span>
-                </div>
+            <div class="news-card skeleton">
+                <div class="skeleton-img"></div>
                 <div class="news-card-body">
-                    <h3>Luzon Earthquake (1990)</h3>
-                    <p>A devastating 7.7 magnitude quake that caused massive structural damage across Central Luzon.</p>
-                    <a href="#" class="read-more">READ FULL STORY <i class="arrow-icon">></i></a>
-                </div>
-            </div>
-
-            <div class="news-card">
-                <div class="news-img-wrapper">
-                    <img src="pinatubo.jpg" alt="Mount Pinatubo Eruption">
-                    <span class="badge historical-badge">HISTORICAL DATA</span>
-                </div>
-                <div class="news-card-body">
-                    <h3>Pinatubo Eruption (1991)</h3>
-                    <p>The second-largest terrestrial eruption of the 20th century, affecting global temperatures for years.</p>
-                    <a href="#" class="read-more">READ FULL STORY <i class="arrow-icon">></i></a>
-                </div>
-            </div>
-
-            <div class="news-card">
-                <div class="news-img-wrapper">
-                    <img src="yolanda.jpg" alt="Typhoon Yolanda">
-                    <span class="badge historical-badge">HISTORICAL DATA</span>
-                </div>
-                <div class="news-card-body">
-                    <h3>Typhoon Yolanda (2013)</h3>
-                    <p>One of the strongest tropical cyclones ever recorded, highlighting the urgency of climate adaptation.</p>
-                    <a href="#" class="read-more">READ FULL STORY <i class="arrow-icon">></i></a>
+                    <div class="skeleton-text title"></div>
+                    <div class="skeleton-text p"></div>
+                    <div class="skeleton-text p short"></div>
                 </div>
             </div>
         </div>
     </div>
-</div> <!--END NEWS-->
+</div><!--END NEWS-->
 
             <div class="card" id="contact"> <!-- Apply Content for Contact Page -->
                 <img src="assets/icons/Hotline.png" alt="Call Icon" class="call-icon">
