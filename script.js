@@ -869,9 +869,37 @@ function renderNews(newsArray){
 
         let position = '';
 
-        if(index === 0) position = 'left';
-        if(index === 1) position = 'center';
-        if(index === 2) position = 'right';
+if(newsArray.length === 1){
+
+    position = 'center';
+
+}else if(newsArray.length === 2){
+
+    position =
+    index === 0
+    ? 'left'
+    : 'right';
+
+}else{
+
+    if(index === 0) position = 'left';
+    if(index === 1) position = 'center';
+    if(index === 2) position = 'right';
+}
+    
+    newsGrid.classList.remove(
+    'two-cards',
+    'one-card'
+);
+
+if(newsArray.length === 1){
+
+    newsGrid.classList.add('one-card');
+
+}else if(newsArray.length === 2){
+
+    newsGrid.classList.add('two-cards');
+}
 
         newsGrid.innerHTML += `
 
@@ -988,6 +1016,9 @@ function rotateRight(){
     const right =
     document.querySelector('.news-card.right');
 
+    if(!left || !center || !right)
+        return;
+
     left.className =
     'news-card right';
 
@@ -1008,6 +1039,9 @@ function rotateLeft(){
 
     const right =
     document.querySelector('.news-card.right');
+
+    if(!left || !center || !right)
+        return;
 
     left.className =
     'news-card center';

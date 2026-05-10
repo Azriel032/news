@@ -1057,6 +1057,30 @@ ul a:hover {
     overflow:hidden;
 }
 
+.news-grid.one-card{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.news-grid.one-card .news-card{
+    position:relative !important;
+    transform:none !important;
+    opacity:1 !important;
+}
+
+.news-grid.two-cards{
+    display:flex;
+    justify-content:center;
+    gap:40px;
+}
+
+.news-grid.two-cards .news-card{
+    position:relative !important;
+    transform:none !important;
+    opacity:1 !important;
+}
+
 /* =========================
    CARD BASE
 ========================= */
