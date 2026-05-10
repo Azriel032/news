@@ -699,15 +699,10 @@ function renderNews(newsArray) {
                         article.image ||
                         'assets/icons/News-Placeholder.png'
                     }"
-
                     alt="${article.title}"
                 >
 
                 <div class="news-content">
-
-                    <span class="news-tag">
-                        ${article.tag || 'CURRENT EVENT'}
-                    </span>
 
                     <h2>
                         ${article.title}
@@ -772,7 +767,7 @@ function setupCarousel() {
 // ROTATE RIGHT
 // =========================
 
-function rotateRight(cards){
+function rotateRight(){
 
     const left =
     document.querySelector('.news-card.left');
@@ -783,21 +778,21 @@ function rotateRight(cards){
     const right =
     document.querySelector('.news-card.right');
 
-    left.className =
-    'news-card right';
+    left.classList.remove('left');
+    left.classList.add('right');
 
-    center.className =
-    'news-card left';
+    center.classList.remove('center');
+    center.classList.add('left');
 
-    right.className =
-    'news-card center';
+    right.classList.remove('right');
+    right.classList.add('center');
 }
 
 // =========================
 // ROTATE LEFT
 // =========================
 
-function rotateLeft(cards){
+function rotateLeft(){
 
     const left =
     document.querySelector('.news-card.left');
@@ -808,14 +803,14 @@ function rotateLeft(cards){
     const right =
     document.querySelector('.news-card.right');
 
-    left.className =
-    'news-card center';
+    left.classList.remove('left');
+    left.classList.add('center');
 
-    center.className =
-    'news-card right';
+    center.classList.remove('center');
+    center.classList.add('right');
 
-    right.className =
-    'news-card left';
+    right.classList.remove('right');
+    right.classList.add('left');
 }
 
 // =========================
