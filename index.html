@@ -182,7 +182,57 @@
                 Recommended safety actions for today's conditions.
             </p>
 
-            <ol class="tips-list"></ol>
+            <ul class="tips-list">
+
+    <li>
+        <img src="assets/tips/wt.jpg" class="tip-icon">
+
+        <h3 class="tip-title">
+            Drink Water
+        </h3>
+
+        <p class="tip-description">
+            Stay hydrated throughout the day.
+        </p>
+    </li>
+
+    <li>
+        <img src="assets/tips/sc.jpg" class="tip-icon">
+
+        <h3 class="tip-title">
+            Wear Sunscreen
+        </h3>
+
+        <p class="tip-description">
+            Protect your skin from UV rays.
+        </p>
+    </li>
+
+    <li>
+        <img src="assets/tips/ben.jpg" class="tip-icon">
+
+        <h3 class="tip-title">
+            Light Clothing
+        </h3>
+
+        <p class="tip-description">
+            Wear breathable clothes outdoors.
+        </p>
+    </li>
+
+    <li>
+        <img src="assets/tips/um.jpg" class="tip-icon">
+
+        <h3 class="tip-title">
+            Avoid Noon Heat
+        </h3>
+
+        <p class="tip-description">
+            Stay indoors during peak sunlight.
+        </p>
+    </li>
+
+</ul>
 
         </div>
 
@@ -212,60 +262,39 @@
 </section>
             <!--END TIPSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS-->
 
-            <!--NEWS-->
-            <div class="card" id="news">
-               <div class="news-header-text">
-                 <h2 class="sdg-title">SDG 13: Climate Action</h2>
-                 <p>Comparing today's events with historical climate data.</p>
-                </div>
+            <section id="news">
 
-            <div class="tab-container">
-               <button class="tab-btn active" onclick="openTab(event, 'current-news')">CURRENT</button>
-               <button class="tab-btn" onclick="openTab(event, 'past-news')">PAST</button>
-            </div>
+    <div class="climate-header">
 
-           <div id="current-news" class="tab-content active">
-               <div class="news-grid" id="news-container">
-                  <div class="news-card skeleton">
-                    <div class="skeleton-img"></div>
-                    <div class="news-card-body">
-                    <div class="skeleton-text title"></div>
-                    <div class="skeleton-text p"></div>
-                    <div class="skeleton-text p short"></div>
-                </div>
-            </div>
-           <div class="news-card skeleton">
-                <div class="skeleton-img"></div>
-                <div class="news-card-body">
-                    <div class="skeleton-text title"></div>
-                    <div class="skeleton-text p"></div>
-                    <div class="skeleton-text p short"></div>
-                </div>
-            </div>
-            <div class="news-card skeleton">
-                <div class="skeleton-img"></div>
-                <div class="news-card-body">
-                    <div class="skeleton-text title"></div>
-                    <div class="skeleton-text p"></div>
-                    <div class="skeleton-text p short"></div>
-                </div>
-            </div>
-        </div>
+        <h1>Climate Action</h1>
+
+        <p>
+            Current climate-related events and historical disasters in the Philippines.
+        </p>
+        
     </div>
 
-    <div id="past-news" class="tab-content">
-        <div class="news-grid">
-            <div class="news-card skeleton">
-                <div class="skeleton-img"></div>
-                <div class="news-card-body">
-                    <div class="skeleton-text title"></div>
-                    <div class="skeleton-text p"></div>
-                    <div class="skeleton-text p short"></div>
-                </div>
-            </div>
-        </div>
+    <div class="climate-toggle">
+
+        <button class="climate-btn active" data-type="current">
+            Current
+        </button>
+
+        <button class="climate-btn" data-type="past">
+            Historical
+        </button>
+
     </div>
-</div><!--END NEWS-->
+    
+    <div class="news-grid">
+
+        <!-- JS GENERATED -->
+
+    </div>
+
+</section>
+           
+            <!--END NEWS-->
 
             <div class="card" id="contact"> <!-- Apply Content for Contact Page -->
                 <img src="assets/icons/Hotline.png" alt="Call Icon" class="call-icon">
@@ -337,5 +366,6 @@
     </footer>
 
     <script src="script.js"></script>
+   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </body>
 </html>
