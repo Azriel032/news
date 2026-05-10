@@ -53,7 +53,7 @@ const newsDataKey =
 
 const shelterData = {
 
-    Manila: [
+    manila: [
 
         {
             name: 'Manila Science High School',
@@ -490,62 +490,62 @@ function updateTipsSection(id, temp, city, condition) {
     // =========================
 
     const shelterGrid =
-    document.querySelector('.shelter-grid');
+document.querySelector('.shelter-grid');
 
-    if (!shelterGrid) return;
+if (!shelterGrid) return;
 
-    shelterGrid.innerHTML = '';
+shelterGrid.innerHTML = '';
 
-    const cityShelters =
-    shelterData[city];
+const cityShelters =
+shelterData[city.toLowerCase()];
 
-    if (cityShelters) {
+if (cityShelters) {
 
-        cityShelters.forEach(shelter => {
+    cityShelters.forEach(shelter => {
 
-            shelterGrid.innerHTML += `
-
-                <div class="shelter-card">
-
-                    <img
-                        src="${shelter.image}"
-                        alt="${shelter.name}"
-                    >
-
-                    <div class="shelter-info">
-
-                        <h3>
-                            ${shelter.name}
-                        </h3>
-
-                    </div>
-
-                </div>
-
-            `;
-        });
-
-    } else {
-
-        shelterGrid.innerHTML = `
+        shelterGrid.innerHTML += `
 
             <div class="shelter-card">
+
+                <img
+                    src="${shelter.image}"
+                    alt="${shelter.name}"
+                >
 
                 <div class="shelter-info">
 
                     <h3>
-                        No Shelter Data
+                        ${shelter.name}
                     </h3>
-
-                    <p>
-                        No shelters available
-                        for this location.
-                    </p>
 
                 </div>
 
             </div>
+
         `;
+    });
+
+} else {
+
+    shelterGrid.innerHTML = `
+
+        <div class="shelter-card">
+
+            <div class="shelter-info">
+
+                <h3>
+                    No Shelter Data
+                </h3>
+
+                <p>
+                    No shelters available
+                    for this location.
+                </p>
+
+            </div>
+
+        </div>
+    `;
     }
 }
 
@@ -624,8 +624,21 @@ function hideAllSections(){
     newsSection.classList.remove('show');
 }
 
+function showErrorState(){
+
+    hideAllSections();
+
+    weatherWelcome.style.display = 'flex';
+
+    errorMsg.style.display = 'block';
+}
+
 // =========================
 // NEWS
+// =========================
+
+// =========================
+// NEWS SYSTEM
 // =========================
 
 const newsGrid =
@@ -638,13 +651,122 @@ let currentNews = [];
 let historicalNews = [];
 
 // =========================
+// HISTORICAL DATABASE
+// =========================
+
+const historicalDatabase = {
+
+    typhoon: [
+
+        {
+            title: 'Super Typhoon Yolanda (2013)',
+
+            description:
+            'One of the deadliest typhoons in Philippine history that devastated Tacloban and nearby provinces.',
+
+            image:
+            'assets/history/yolanda.jpg',
+
+            link:
+            'https://en.wikipedia.org/wiki/Typhoon_Haiyan'
+        },
+
+        {
+            title: 'Typhoon Ondoy (2009)',
+
+            description:
+            'Massive flooding submerged Metro Manila after intense rainfall.',
+
+            image:
+            'assets/history/ondoy.jpg',
+
+            link:
+            'https://en.wikipedia.org/wiki/Tropical_Storm_Ketsana'
+        },
+
+        {
+            title: 'Typhoon Rolly (2020)',
+
+            description:
+            'One of the strongest tropical cyclones ever recorded worldwide.',
+
+            image:
+            'assets/history/rolly.jpg',
+
+            link:
+            'https://en.wikipedia.org/wiki/Typhoon_Goni'
+        }
+    ],
+
+    heat: [
+
+        {
+            title: '2016 El Niño Crisis',
+
+            description:
+            'Extreme drought and heat affected agriculture and water supply across Southeast Asia.',
+
+            image:
+            'assets/history/elnino.jpg',
+
+            link:
+            'https://en.wikipedia.org/wiki/2014%E2%80%9316_El_Ni%C3%B1o_event'
+        },
+
+        {
+            title: '2024 Philippine Heat Wave',
+
+            description:
+            'Dangerous heat index levels forced class suspensions nationwide.',
+
+            image:
+            'assets/history/heatwave.jpg',
+
+            link:
+            'https://en.wikipedia.org/wiki/Heat_wave'
+        }
+    ],
+
+    flood: [
+
+        {
+            title: 'Marikina Flood Disaster',
+
+            description:
+            'Severe flooding displaced thousands during Ondoy.',
+
+            image:
+            'assets/history/marikina.jpg',
+
+            link:
+            'https://en.wikipedia.org/wiki/Tropical_Storm_Ketsana'
+        }
+    ],
+
+    earthquake: [
+
+        {
+            title: '1990 Luzon Earthquake',
+
+            description:
+            'A magnitude 7.7 earthquake caused severe destruction in Northern Luzon.',
+
+            image:
+            'assets/history/luzon-earthquake.jpg',
+
+            link:
+            'https://en.wikipedia.org/wiki/1990_Luzon_earthquake'
+        }
+    ]
+};
+// =========================
 // FETCH NEWS
 // =========================
 
 async function fetchClimateNews(city = 'Philippines') {
 
     const query =
-    `${city} climate OR flood OR typhoon OR heat OR disaster`;
+    `${city} disaster OR evacuation OR severe weather`;
 
     const url =
     `https://newsdata.io/api/1/news?apikey=${newsDataKey}&language=en&q=${encodeURIComponent(query)}`;
@@ -655,90 +777,95 @@ async function fetchClimateNews(city = 'Philippines') {
 
         const data = await response.json();
 
-        console.log(data);
-
-        if (!data.results || data.results.length === 0) {
+        if(!data.results){
 
             renderFallback();
             return;
         }
 
-        currentNews = data.results
-        .filter(article => article.image_url)
-        .slice(0, 3);
+        currentNews =
+        data.results.slice(0, 3);
 
-        // LOCATION TEXT
         document.querySelector('.news-location').textContent =
         `Showing climate news for ${city}`;
 
-        historicalNews = [
-
-            {
-                title:'Typhoon Yolanda (2013)',
-
-                description:
-                'One of the strongest tropical cyclones ever recorded devastated the Philippines.',
-
-                image:
-                'https://images.unsplash.com/photo-1527489377706-5bf97e608852?q=80&w=1200&auto=format&fit=crop',
-
-                link:'#'
-            },
-
-            {
-                title:'Tropical Storm Ondoy (2009)',
-
-                description:
-                'Heavy rainfall caused catastrophic flooding across Metro Manila.',
-
-                image:
-                'https://images.unsplash.com/photo-1547683905-f686c993aae5?q=80&w=1200&auto=format&fit=crop',
-
-                link:'#'
-            },
-
-            {
-                title:'1990 Luzon Earthquake',
-
-                description:
-                'A magnitude 7.7 earthquake struck Luzon causing severe damage.',
-
-                image:
-                'https://images.unsplash.com/photo-1511884642898-4c92249e20b6?q=80&w=1200&auto=format&fit=crop',
-
-                link:'#'
-            }
-        ];
+        generateHistoricalNews(currentNews);
 
         renderNews(currentNews);
 
-    } catch(error) {
+    } catch(error){
 
-        console.error(error);
+        console.log(error);
 
         renderFallback();
     }
 }
 
-async function getFetchData(type, city){
+// =========================
+// GENERATE RELATED HISTORY
+// =========================
 
-    const url =
-    `https://api.openweathermap.org/data/2.5/${type}?q=${city}&appid=${apiKey}&units=metric`;
+function generateHistoricalNews(news){
 
-    const response = await fetch(url);
+    historicalNews = [];
 
-    return response.json();
+    news.forEach(article => {
+
+        const type =
+        detectDisasterType(article);
+
+        if(!type) return;
+
+        // PICK ONLY ONE RELATED HISTORY
+
+        const related =
+        historicalDatabase[type];
+
+        if(related && related.length){
+
+            historicalNews.push(
+                related[0]
+            );
+        }
+    });
+
+    // REMOVE DUPLICATES
+
+    historicalNews =
+    historicalNews.filter(
+        (item,index,self)=>
+
+            index === self.findIndex(
+                t => t.title === item.title
+            )
+    );
+
+    // LIMIT SAME LENGTH AS CURRENT NEWS
+
+    historicalNews =
+    historicalNews.slice(
+        0,
+        currentNews.length
+    );
+
+    // FALLBACK
+
+    if(historicalNews.length === 0){
+
+        historicalNews =
+        historicalDatabase.typhoon.slice(0,3);
+    }
 }
 
 // =========================
 // RENDER NEWS
 // =========================
 
-function renderNews(newsArray) {
+function renderNews(newsArray){
 
     newsGrid.innerHTML = '';
 
-    newsArray.forEach((article, index) => {
+    newsArray.forEach((article,index)=>{
 
         let position = '';
 
@@ -754,15 +881,44 @@ function renderNews(newsArray) {
                 class="news-card ${position}"
             >
 
-                <img
-                    src="${
-                        article.image_url ||
-                        article.image ||
-                        'assets/icons/News-Placeholder.png'
-                    }"
-                    alt="${article.title}"
-                >
+                <div class="news-image-wrapper">
 
+${
+(article.image_url || article.image)
+? `
+<img
+    src="${article.image_url || article.image}"
+    alt="${article.title}"
+    onerror="
+        this.style.display='none';
+        this.parentElement.querySelector('.no-image-box').style.display='flex';
+    "
+>
+`
+: ''
+}
+
+<div
+    class="no-image-box"
+    style="display:${
+        (article.image_url || article.image)
+        ? 'none'
+        : 'flex'
+    };"
+>
+
+    <img
+        src="assets/icons/no-image.png"
+        class="no-image"
+    >
+
+    <span>
+        No Image Available
+    </span>
+
+</div>
+
+</div>
                 <div class="news-content">
 
                     <h2>
@@ -772,8 +928,8 @@ function renderNews(newsArray) {
                     <p>
                         ${
                             article.description
-                            ? article.description.substring(0, 120) + '...'
-                            : 'Climate-related event affecting communities.'
+                            ? article.description.substring(0,120)
+                            : 'Climate-related disaster.'
                         }
                     </p>
 
@@ -790,43 +946,36 @@ function renderNews(newsArray) {
     setupCarousel();
 }
 
-function setupCarousel() {
+// =========================
+// CAROUSEL
+// =========================
+
+function setupCarousel(){
 
     const cards =
     document.querySelectorAll('.news-card');
 
-    cards.forEach(card => {
+    cards.forEach(card=>{
 
-        card.addEventListener('click', e => {
+        card.addEventListener('click',e=>{
 
-            // prevent link opening immediately
             e.preventDefault();
 
-            // clicked RIGHT card
             if(card.classList.contains('right')){
 
-                rotateRight(cards);
+                rotateRight();
 
-            }
+            }else if(card.classList.contains('left')){
 
-            // clicked LEFT card
-            else if(card.classList.contains('left')){
+                rotateLeft();
 
-                rotateLeft(cards);
-            }
+            }else{
 
-            // CENTER CARD
-            else{
-
-                window.open(card.href, '_blank');
+                window.open(card.href,'_blank');
             }
         });
     });
 }
-
-// =========================
-// ROTATE RIGHT
-// =========================
 
 function rotateRight(){
 
@@ -839,19 +988,15 @@ function rotateRight(){
     const right =
     document.querySelector('.news-card.right');
 
-    left.classList.remove('left');
-    left.classList.add('right');
+    left.className =
+    'news-card right';
 
-    center.classList.remove('center');
-    center.classList.add('left');
+    center.className =
+    'news-card left';
 
-    right.classList.remove('right');
-    right.classList.add('center');
+    right.className =
+    'news-card center';
 }
-
-// =========================
-// ROTATE LEFT
-// =========================
 
 function rotateLeft(){
 
@@ -864,31 +1009,27 @@ function rotateLeft(){
     const right =
     document.querySelector('.news-card.right');
 
-    left.classList.remove('left');
-    left.classList.add('center');
+    left.className =
+    'news-card center';
 
-    center.classList.remove('center');
-    center.classList.add('right');
+    center.className =
+    'news-card right';
 
-    right.classList.remove('right');
-    right.classList.add('left');
+    right.className =
+    'news-card left';
 }
 
 // =========================
 // FALLBACK
 // =========================
 
-function renderFallback() {
+function renderFallback(){
 
     newsGrid.innerHTML = `
 
-        <div class="news-card">
+        <div class="news-card center">
 
             <div class="news-content">
-
-                <span class="news-tag">
-                    ERROR
-                </span>
 
                 <h2>
                     Unable to load climate news
@@ -904,15 +1045,117 @@ function renderFallback() {
     `;
 }
 
+async function getFetchData(type, city){
+
+    let url = '';
+
+    if(type === 'weather'){
+
+        url =
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+    }else if(type === 'forecast'){
+
+        url =
+        `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+    }
+
+    const response = await fetch(url);
+
+    return response.json();
+}
+
+function detectDisasterType(article){
+
+    const text = `
+        ${article.title || ''}
+        ${article.description || ''}
+    `.toLowerCase();
+
+    // =========================
+    // TYPHOON
+    // =========================
+
+    const typhoonWords = [
+        'super typhoon',
+        'typhoon',
+        'tropical storm',
+        'cyclone',
+        'storm surge'
+    ];
+
+    // =========================
+    // HEAT
+    // =========================
+
+    const heatWords = [
+        'heat index',
+        'heat wave',
+        'extreme heat',
+        'el niño',
+        'high temperature'
+    ];
+
+    // =========================
+    // FLOOD
+    // =========================
+
+    const floodWords = [
+        'flood',
+        'flooding',
+        'heavy rainfall',
+        'flash flood'
+    ];
+
+    // =========================
+    // EARTHQUAKE
+    // =========================
+
+    const earthquakeWords = [
+        'earthquake',
+        'magnitude',
+        'tectonic'
+    ];
+
+    // =========================
+    // HELPER
+    // =========================
+
+    function hasKeyword(words){
+
+        return words.some(word =>
+            text.includes(word)
+        );
+    }
+
+    // =========================
+    // PRIORITY MATCHING
+    // =========================
+
+    if(hasKeyword(typhoonWords))
+        return 'typhoon';
+
+    if(hasKeyword(heatWords))
+        return 'heat';
+
+    if(hasKeyword(floodWords))
+        return 'flood';
+
+    if(hasKeyword(earthquakeWords))
+        return 'earthquake';
+
+    return null;
+}
+
 // =========================
-// TOGGLE
+// TOGGLE BUTTONS
 // =========================
 
-climateButtons.forEach(button => {
+climateButtons.forEach(button=>{
 
-    button.addEventListener('click', () => {
+    button.addEventListener('click',()=>{
 
-        climateButtons.forEach(btn =>
+        climateButtons.forEach(btn=>
             btn.classList.remove('active')
         );
 
@@ -921,11 +1164,11 @@ climateButtons.forEach(button => {
         const type =
         button.dataset.type;
 
-        if (type === 'current') {
+        if(type === 'current'){
 
             renderNews(currentNews);
 
-        } else {
+        }else{
 
             renderNews(historicalNews);
         }
