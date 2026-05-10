@@ -245,6 +245,36 @@ ul a:hover {
     width: 30px;
     height: 30px;
 }
+.city-input,
+.country-input{
+
+    position:relative;
+
+    z-index:2;
+}
+
+/* FIX BUTTON OVERLAP */
+
+.search-btn,
+.welcome-search-btn{
+
+    z-index:3;
+}
+
+/* HIDE TIPS & NEWS INITIALLY */
+
+#tips,
+#news{
+
+    display:none;
+}
+
+#tips.show,
+#news.show{
+
+    display:block;
+}
+
 .error-msg {
     font-family: 'Inter', sans-serif;
     color: #DC2626;
@@ -260,7 +290,10 @@ ul a:hover {
 
     border: 1px solid black; /* temporary border */
 }
-.city-input {
+.city-input,
+.country-input{
+    position: relative;
+    z-index: 2;
     width: 100%;
     padding: 10px 18px;
     border-radius: 80px;
@@ -279,7 +312,9 @@ ul a:hover {
     color: rgb(255, 255, 255, 0.75);
     font-family: 'Inter', sans-serif;
 }
-.search-btn {
+.search-btn,
+.welcome-search-btn{
+    z-index: 3;
     position: absolute;
     right: 30px;
     top: 50%;
@@ -1243,6 +1278,18 @@ ul a:hover {
     -webkit-font-smoothing:antialiased;
     }
 }
+
+.news-location{
+    margin-top:16px;
+
+    font-size:0.95rem;
+    font-family:"Inter",sans-serif;
+
+    color:#2563EB;
+
+    font-weight:600;
+}
+
 /* ENDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD */
 
 /* Emergency Hotline */

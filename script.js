@@ -12,6 +12,7 @@ const weatherInput = document.querySelector('.weather-input');
 const weatherText = document.querySelector('.weather-text');
 
 const tipsSection = document.getElementById('tips');
+const newsSection = document.getElementById('news');
 
 const errorMsg = document.querySelector('.error-msg');
 const weatherError = document.querySelector('.weather-error-msg');
@@ -80,19 +81,21 @@ const shelterData = {
 // SEARCH EVENTS
 // =========================
 
-function handleSearch() {
+function handleSearch(){
 
     const city =
-    cityInput.value.trim() ||
-    countryInput.value.trim();
+    countryInput.value.trim() ||
+    cityInput.value.trim();
 
-    if (!city) return;
+    if(!city) return;
 
     updateWeatherInfo(city);
 
     cityInput.value = '';
     countryInput.value = '';
 }
+
+// BUTTONS
 
 welcomeSearchBtn?.addEventListener(
     'click',
@@ -104,39 +107,29 @@ searchBtn?.addEventListener(
     handleSearch
 );
 
-[cityInput, countryInput].forEach(input => {
+// ENTER KEY
 
-    input?.addEventListener('keypress', e => {
+cityInput?.addEventListener(
+    'keypress',
+    e => {
 
-        if (e.key === 'Enter') {
+        if(e.key === 'Enter'){
 
             handleSearch();
         }
-    });
-});
-
-// =========================
-// FETCH WEATHER DATA
-// =========================
-
-async function getFetchData(endpoint, city) {
-    try {
-        const apiUrl =
-        `https://api.openweathermap.org/data/2.5/${endpoint}?q=${city}&appid=${apiKey}&units=metric`;
-
-        const response = await fetch(apiUrl);
-
-        if (!response.ok) {
-            throw new Error("Weather API request failed");
-        }
-
-        return await response.json();
-
-    } catch (err) {
-        console.error("Weather API error:", err);
-        return { cod: 500 };
     }
-}
+);
+
+countryInput?.addEventListener(
+    'keypress',
+    e => {
+
+        if(e.key === 'Enter'){
+
+            handleSearch();
+        }
+    }
+);
 
 // =========================
 // WEATHER ICONS
@@ -190,47 +183,130 @@ function getTodayLabel(id) {
 // UPDATE WEATHER
 // =========================
 
-async function updateWeatherInfo(city) {
+async function updateWeatherInfo(city){
 
-    const weatherData = await getFetchData('weather', city);
+    try{
 
-    if (Number(weatherData.cod) !== 200) {
+        const weatherData =
+        await getFetchData('weather', city);
+
+        if(Number(weatherData.cod) !== 200){
+
+            showErrorState();
+            return;
+        }
+
+        const {
+
+            name,
+
+            main: {
+                temp,
+                humidity
+            },
+
+            weather: [{
+                id,
+                main
+            }],
+
+            wind: {
+                speed
+            }
+
+        } = weatherData;
+
+        // WEATHER INFO
+
+        cityTxt.textContent = name;
+
+        tempTxt.textContent =
+        `${Math.round(temp)} °C`;
+
+        conditionTxt.textContent =
+        main;
+
+        humidityTxt.textContent =
+        `${humidity}%`;
+
+        windTxt.textContent =
+        `${speed} M/s`;
+
+        weatherDay.textContent =
+        new Date().toLocaleDateString(
+            'en-GB',
+            {
+                weekday:'short',
+                day:'2-digit',
+                month:'short'
+            }
+        );
+
+        // ICONS
+
+        const icon =
+        getWeatherIcon(id);
+
+        weatherImg.src =
+        `assets/weather/${icon}`;
+
+        lottieWeather.src =
+        `assets/weather/${icon}`;
+
+        todayTxt.textContent =
+        getTodayLabel(id);
+
+        // UPDATE UI
+
+        updateTipsSection(
+            id,
+            temp,
+            name,
+            main
+        );
+
+        try{
+
+            fetchClimateNews(city);
+
+        }catch(err){
+
+            console.log(err);
+        }
+
+        try{
+
+            await updateForecastsInfo(city);
+
+        }catch(err){
+
+            console.log(err);
+        }
+
+        // SHOW SECTIONS
+
+        hideAllSections();
+
+        weatherInput.style.display =
+        'flex';
+
+        weatherText.style.display =
+        'flex';
+
+        tipsSection.classList.add(
+            'show'
+        );
+
+        newsSection.classList.add(
+            'show'
+        );
+
+    }catch(error){
+
+        console.log(error);
+
         showErrorState();
-        return;
     }
-
-    const {
-        name,
-        main: { temp, humidity },
-        weather: [{ id, main }],
-        wind: { speed }
-    } = weatherData;
-
-    cityTxt.textContent = name;
-    tempTxt.textContent = `${Math.round(temp)} °C`;
-    conditionTxt.textContent = main;
-    humidityTxt.textContent = `${humidity}%`;
-    windTxt.textContent = `${speed} M/s`;
-
-    weatherDay.textContent = new Date().toLocaleDateString(
-        'en-GB',
-        { weekday: 'short', day: '2-digit', month: 'short' }
-    );
-
-    weatherImg.src = `assets/weather/${getWeatherIcon(id)}`;
-    lottieWeather.src = `assets/weather/${getWeatherIcon(id)}`;
-
-    todayTxt.textContent = getTodayLabel(id);
-
-    updateTipsSection(id, temp, name, main);
-
-    await updateForecastsInfo(city);
-
-    hideAllSections();
-
-    weatherInput.style.display = 'flex';
-    weatherText.style.display = 'flex';
-    tipsSection.classList.add('show');
 }
 
 // =========================
@@ -525,7 +601,7 @@ async function updateForecastsInfo(city) {
 // HIDE SECTIONS
 // =========================
 
-function hideAllSections() {
+function hideAllSections(){
 
     [
 
@@ -537,39 +613,15 @@ function hideAllSections() {
 
     ].forEach(section => {
 
-        if (section) {
+        if(section){
 
             section.style.display = 'none';
         }
     });
 
     tipsSection.classList.remove('show');
-}
 
-// =========================
-// ERROR STATE
-// =========================
-
-function showErrorState() {
-
-    hideAllSections();
-
-    weatherWelcome.style.display = 'flex';
-
-    errorMsg.style.display = 'block';
-}
-
-// =========================
-// ERROR STATE
-// =========================
-
-function showErrorState() {
-
-    hideAllSections();
-
-    weatherWelcome.style.display = 'flex';
-
-    errorMsg.style.display = 'block';
+    newsSection.classList.remove('show');
 }
 
 // =========================
@@ -589,10 +641,13 @@ let historicalNews = [];
 // FETCH NEWS
 // =========================
 
-async function fetchClimateNews() {
+async function fetchClimateNews(city = 'Philippines') {
+
+    const query =
+    `${city} climate OR flood OR typhoon OR heat OR disaster`;
 
     const url =
-    `https://newsdata.io/api/1/news?apikey=${newsDataKey}&country=ph&language=en&q=climate`;
+    `https://newsdata.io/api/1/news?apikey=${newsDataKey}&language=en&q=${encodeURIComponent(query)}`;
 
     try {
 
@@ -608,11 +663,13 @@ async function fetchClimateNews() {
             return;
         }
 
-        // FILTER INVALID IMAGES
-
         currentNews = data.results
         .filter(article => article.image_url)
         .slice(0, 3);
+
+        // LOCATION TEXT
+        document.querySelector('.news-location').textContent =
+        `Showing climate news for ${city}`;
 
         historicalNews = [
 
@@ -620,42 +677,36 @@ async function fetchClimateNews() {
                 title:'Typhoon Yolanda (2013)',
 
                 description:
-                'One of the strongest tropical cyclones ever recorded devastated the Philippines and caused massive destruction in Visayas.',
+                'One of the strongest tropical cyclones ever recorded devastated the Philippines.',
 
                 image:
                 'https://images.unsplash.com/photo-1527489377706-5bf97e608852?q=80&w=1200&auto=format&fit=crop',
 
-                link:'#',
-
-                tag:'HISTORICAL'
+                link:'#'
             },
 
             {
                 title:'Tropical Storm Ondoy (2009)',
 
                 description:
-                'Heavy rainfall caused catastrophic flooding across Metro Manila affecting thousands of families.',
+                'Heavy rainfall caused catastrophic flooding across Metro Manila.',
 
                 image:
                 'https://images.unsplash.com/photo-1547683905-f686c993aae5?q=80&w=1200&auto=format&fit=crop',
 
-                link:'#',
-
-                tag:'HISTORICAL'
+                link:'#'
             },
 
             {
                 title:'1990 Luzon Earthquake',
 
                 description:
-                'A magnitude 7.7 earthquake struck Luzon causing severe infrastructure damage and casualties.',
+                'A magnitude 7.7 earthquake struck Luzon causing severe damage.',
 
                 image:
                 'https://images.unsplash.com/photo-1511884642898-4c92249e20b6?q=80&w=1200&auto=format&fit=crop',
 
-                link:'#',
-
-                tag:'HISTORICAL'
+                link:'#'
             }
         ];
 
@@ -667,6 +718,16 @@ async function fetchClimateNews() {
 
         renderFallback();
     }
+}
+
+async function getFetchData(type, city){
+
+    const url =
+    `https://api.openweathermap.org/data/2.5/${type}?q=${city}&appid=${apiKey}&units=metric`;
+
+    const response = await fetch(url);
+
+    return response.json();
 }
 
 // =========================
@@ -877,5 +938,11 @@ climateButtons.forEach(button => {
 
 document.addEventListener(
     'DOMContentLoaded',
-    fetchClimateNews
+    () => {
+
+        hideAllSections();
+
+        weatherWelcome.style.display =
+        'flex';
+    }
 );
